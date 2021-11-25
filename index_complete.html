@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응형 헤더 푸터 작업</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        /*헤더 첫줄 작업 유틸메뉴*/
+        /*공통 센터*/
+        .center { width:1200px; margin:0 auto;}
+        
+        .h-top { background-color:aqua;}
+        .util_menu { float:right;}
+        .util_menu li { float:left; margin:0 15px; line-height:25px;}
+        .util_menu li a { color:#000; font-size:13px;}
+
+        /*헤더 두번째 줄 작업 로고*/
+        .h-mid { background-color:#fff;}
+        .logo { text-align:center; padding:15px 0;}
+
+        /*헤더 세번째 줄 gnb 메뉴*/
+        .h-bot { background-color:pink;}
+        .gnb li { float:left; width:20%; text-align:center; line-height:50px;}
+        .gnb li a {display:block; background-color:yellowgreen; color:#fff;}
+
+        .m-btn { display:none;}
+
+
+        /*모바일 메뉴 구간 작업 어차피 햄버거 메뉴 클릭전까지는 화면에 나올 일 없음*/
+        .m-gnb { transition:all 0.5s;
+                position:fixed; left:-420px; top:0; width:320px; height:100%; padding:40px 50px; background-color:#000;}
+
+        .m-top { border:1px solid red; margin-bottom:15px;}
+        .m-top .m-logo { float:left;}
+        .m-top .m-logo a { color:#fff;}
+        .m-top .m-close { float:right; color:#fff;}
+
+        .m-menu { margin-bottom:15px;}
+        .m-menu > ul > li { background-color:#fff; 
+                            border-bottom:1px solid purple;
+                            height:30px; overflow: hidden;
+                            transition:all 0.5s;
+                            line-height:30px;}
+
+        /*쉽게 li태그 높이값 변경(단점)*/
+        /* .m-menu > ul > li.on { height:151px;} */
+        
+        .m-menu > ul > li > a { display:block; color:#000; background-color:#fff;}
+        .m-menu > ul > li.on > a { color:red; font-weight:bold; background-color:aqua;}
+        
+
+
+
+        .m-search {position:relative; margin-bottom:15px;}
+        .m-search .search { width:100%; height:30px; border:1px solid red; box-sizing:border-box;}
+        /*기본적으로 사이즈를 지정하고 패딩이나 테두리선 적용하면 더하기 됨*/
+        /*box-sizing:border-box  해당 태그에 패딩 + 보더까지는 가로사이즈 세로사이즈에 포함되서 사이즈가 계산  css 속성
+          마진은 바깥쪽으로 나가는 여백이기 때문에 해당사항 없음 
+        */
+        .m-search .s-btn { position:absolute; right:0; top:0; width:50px; height:100%; background-color:#333;
+                           color:#fff; border:none;}
+    
+        .m-util li { margin-bottom:10px;} 
+        .m-util li a { color:#fff; font-size:18px;}
+
+        /*테블릿pc 구간 반응형 헤더 작업*/
+        @media screen and (max-width:1200px)
+        {
+            /*헤더 첫줄 작업 유틸메뉴*/
+            /*공통 센터*/
+            .center { width:100%;}
+            
+            .util_menu li { margin:0 20px; line-height:35px;}
+            .util_menu li a { font-size:16px;}
+
+            /*헤더 두번째 줄 작업 로고*/
+            .logo { padding:20px 0;}
+
+        }
+
+        @media screen and (max-width:640px)
+        {
+            /*헤더 첫줄 작업 유틸메뉴*/
+            /*공통 센터*/
+
+            .h-top {display:none;}
+            
+            /*헤더 두번째 줄 작업 로고*/
+            .h-mid { position:relative; height:60px; background-color:thistle;}
+            .logo { position:absolute; left:10px; top:50%; transform:translateY(-50%);}
+
+            /*헤더 세번째 줄 gnb 메뉴*/
+            .h-bot { display:none;}
+
+            .m-btn { position:absolute; right:10px; top:50%; transform:translateY(-50%);
+                     display:block;}
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div class="h-top">
+            <div class="center clear_fix">
+                <ul class="util_menu clear_fix">
+                    <li><a href="#">로그인</a></li>
+                    <li><a href="#">회원가입</a></li>
+                    <li><a href="#">장바구니</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="h-mid">
+            <div class="center">
+                <h1 class="logo"><a href="#">로고</a></h1>
+                <a class="m-btn" href="#">모바일</a> <!-- 640일때만 나옴 오른쪽에!-->
+            </div>
+        </div>
+        <div class="h-bot">
+            <div class="center">
+                <ul class="gnb clear_fix">
+                    <li><a href="#">메뉴소개</a></li>
+                    <li><a href="#">메뉴소개</a></li>
+                    <li><a href="#">메뉴소개</a></li>
+                    <li><a href="#">메뉴소개</a></li>
+                    <li><a href="#">메뉴소개</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-gnb">
+            <!--로고랑 닫기버튼-->
+            <div class="m-top clear_fix">
+                <h1 class="m-logo"><a href="#">로고</a></h1>
+                <a class="m-close" href="#">닫기</a>
+            </div>
+            <!--메뉴구성-->
+            <div class="m-menu">
+                <ul>
+                    <li>
+                        <a href="#">메뉴소개</a>
+                        <ul class="m-depth2">
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">메뉴소개</a>
+                        <ul class="m-depth2">
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">메뉴소개</a>
+                        <ul class="m-depth2">
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">메뉴소개</a>
+                        <ul class="m-depth2">
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">메뉴소개</a>
+                        <ul class="m-depth2">
+                            <li><a href="#">모바일서브메뉴</a></li>
+                            <li><a href="#">모바일서브메뉴</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- 검색창모양-->
+            <div class="m-search">
+                <form action="test.php" method="get">
+                    <input class="search" type="text" name="search" maxlength="9" placeholder="검색어를 입력하세요">
+                    <button class="s-btn" type="submit">전송</button>
+                </form>
+            </div>
+            <!--로그인,회원가입 메뉴-->
+            <div class="m-util">
+                <ul>
+                    <li><a href="#">로그인</a></li>
+                    <li><a href="#">회원가입</a></li>
+                    <li><a href="#">장바구니</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector(".m-btn").addEventListener("click",function(){
+
+            document.querySelector(".m-gnb").style.left = "0px";
+
+        });
+
+        document.querySelector(".m-close").addEventListener("click",function(){
+
+            document.querySelector(".m-gnb").style.left = "-420px";
+        });
+
+        //모바일 메뉴 li태그 높이값 변경되게 처리해서 서브메뉴가 보일 수 있도록 작업
+        //클릭을 했을 때 동작
+
+        const mList = document.querySelectorAll(".m-menu > ul > li"); //현재 기준 5개
+
+        const depth2 = document.querySelectorAll(".m-depth2");
+
+        const mListHeight = document.querySelector(".m-menu > ul > li").offsetHeight;
+
+        //모바일 메뉴가 클릭이벤트
+        for(let i=0; i < mList.length; i++)
+        {
+            mList[i].addEventListener("click",()=>{ 
+
+                //contains("클래스명") 해당태그에 해당클래스명 있으면 true값  없으면 false
+                if(mList[i].classList.contains("on"))
+                {
+                    mList[i].classList.remove("on");
+                    mList[i].style.height = mListHeight + "px";
+                }
+                else
+                {   
+                    //기존에 on이 붙어있는 대상들은 전부 높이값이 줄어들게 처리
+                    const open = document.querySelectorAll(".m-menu > ul > li.on");
+                    for(let j=0; j < open.length; j++)
+                    {
+                        open[j].classList.remove("on");
+                        open[j].style.height = mListHeight + "px";
+                    }
+
+                    //클릭한 li태그는 높이값이 늘어남
+                    mList[i].classList.add("on");
+                    mList[i].style.height = mList[i].offsetHeight + depth2[i].offsetHeight + "px";
+                }
+
+            });
+        }
+
+    </script>
+</body>
+</html>
